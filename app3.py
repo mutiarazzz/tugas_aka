@@ -84,6 +84,7 @@ if run_btn:
     res_i, time_i, fact_i = sum_even_factors_iterative(n_val)
     res_r, time_r, fact_r, success_r = sum_even_factors_recursive(n_val)
 
+    # 2. Hasil Penjumlahan 
     st.markdown(f"""
         <div class="sum-result-box">
             <span style="color: gray;">Total Penjumlahan Faktor Genap (N={n_val}):</span><br>
@@ -106,6 +107,51 @@ if run_btn:
     with col_v3:
         selisih = abs(time_i - time_r)
         st.metric("Selisih Efisiensi", f"{selisih:.8f} s")
+
+     # 4. Grafik Bar (Original)
+    st.divider()
+    col_chart, col_detail = st.columns([3, 2])
+    with col_chart:
+        st.subheader("📊 Visualisasi Bar Kecepatan")
+        if success_r:
+            fig = go.Figure(data=[
+                go.Bar(name='Iteratif', x=['Iteratif'], y=[time_i], marker_color='#EC4899', text=[f"{time_i:.5f}"], textposition='auto'),
+                go.Bar(name='Rekursif', x=['Rekursif'], y=[time_r], marker_color='#3B82F6', text=[f"{time_r:.5f}"], textposition='auto')
+            ])
+            fig.update_layout(height=350, margin=dict(l=20, r=20, t=20, b=20))
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("⚠️ Rekursif mencapai batasan stack memori.")
+
+    with col_detail:
+        st.subheader("📋 Detail Data Faktor")
+        st.write(f"Ditemukan **{len(fact_i)}** faktor genap.")
+        with st.container(border=True):
+            st.write(", ".join(map(str, sorted(fact_i))) if fact_i else "Tidak ada faktor genap")
+
+    # 5. Grafik Garis & Tabel Kenaikan N (Analisis Tambahan)
+    st.divider()
+    st.subheader("📈 Trend Kenaikan Waktu Berdasarkan N")
+    input_sizes = [10, 100, 250, 500, 750, 1000, 1500, 2000]
+    history = []
+    for size in input_sizes:
+        _, t_i, _ = sum_even_factors_iterative(size)
+        _, t_r, _, ok = sum_even_factors_recursive(size)
+        history.append({"N": size, "Iteratif (s)": t_i, "Rekursif (s)": t_r if ok else None})
+    
+    df_perf = pd.DataFrame(history)
+    c_line, c_table = st.columns([3, 2])
+    with c_line:
+        fig2, ax = plt.subplots(figsize=(10, 4.5))
+        ax.plot(df_perf["N"], df_perf["Rekursif (s)"], marker='o', label='Rekursif', color='#3B82F6')
+        ax.plot(df_perf["N"], df_perf["Iteratif (s)"], marker='o', label='Iteratif', color='#EC4899')
+        ax.set_ylabel("Waktu (detik)")
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+        st.pyplot(fig2)
+    with c_table:
+        st.dataframe(df_perf.style.format({"Iteratif (s)": "{:.8f}", "Rekursif (s)": "{:.8f}"}), use_container_width=True)
+
 
     # --- TAB ANALISIS ---
     st.divider()
@@ -152,3 +198,4 @@ else:
     st.info("Gunakan slider di samping dan klik tombol Mulai untuk melihat hasil analisis.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2024</div>", unsafe_allow_html=True)
+
