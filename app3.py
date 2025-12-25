@@ -44,7 +44,7 @@ def sum_even_factors_recursive(n, current=1):
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(page_title="Analisis Kompleksitas Algoritma", layout="wide")
 
-# Custom CSS untuk UI Premium dan teks hasil yang dipertegas
+# Custom CSS
 st.markdown("""
     <style>
     .speed-card {
@@ -59,7 +59,6 @@ st.markdown("""
     .card-label { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; }
     .card-value { font-size: 1.6rem; font-weight: 800; }
     
-    /* Perbaikan Kotak Hasil agar lebih jelas dan teks tebal */
     .sum-result-box {
         background-color: rgba(151, 166, 195, 0.1);
         border: 2px solid #FF4B4B;
@@ -89,17 +88,17 @@ if run_btn:
     res_i, time_i, fact_i = sum_even_factors_iterative(n_val)
     res_r, time_r, fact_r, success_r = sum_even_factors_recursive(n_val)
 
-    # 2. Kotak Hasil Penjumlahan (Teks Sebesar 'Perbandingan Kecepatan' & Bold)
+    # 2. Kotak Hasil Penjumlahan
     st.markdown(f"""
         <div class="sum-result-box">
-            <h3 style="margin:0; font-weight: 900; color: var(--text-color); text-transform: uppercase; letter-spacing: 1px;">
+            <h3 style="margin:0; font-weight: 900; color: var(--text-color); text-transform: uppercase;">
                 TOTAL PENJUMLAHAN FAKTOR GENAP (N={n_val}): 
                 <span style="color: #FF4B4B;">{res_i}</span>
             </h3>
         </div>
     """, unsafe_allow_html=True)
 
-    # 3. Perbandingan Kecepatan (Highlight Utama)
+    # 3. Perbandingan Kecepatan
     st.write("### ⏱️ Perbandingan Kecepatan")
     col_v1, col_v2, col_v3 = st.columns(3)
     with col_v1:
@@ -116,7 +115,7 @@ if run_btn:
         selisih = abs(time_i - time_r)
         st.metric("Selisih Efisiensi", f"{selisih:.8f} s")
 
-    # 4. Grafik Bar & Detail Faktor
+    # 4. Grafik & Detail
     st.divider()
     col_chart, col_detail = st.columns([3, 2])
     with col_chart:
@@ -158,7 +157,7 @@ if run_btn:
     with c_table:
         st.dataframe(df_perf.style.format({"Iteratif (s)": "{:.8f}", "Rekursif (s)": "{:.8f}"}), use_container_width=True)
 
-    # 6. Tab Analisis (Tetap Mempertahankan Analisis Asli Anda)
+    # 6. Tab Analisis
     st.divider()
     t1, t2 = st.tabs(["📝 Kesimpulan Analisis", "💻 Kode Algoritma"])
     with t1:
