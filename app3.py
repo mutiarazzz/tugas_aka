@@ -44,7 +44,7 @@ def sum_even_factors_recursive(n, current=1):
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(page_title="Analisis Kompleksitas Algoritma", layout="wide")
 
-# Custom CSS
+# Custom CSS untuk UI yang lebih ramping dan fokus pada kecepatan
 st.markdown("""
     <style>
     .speed-card {
@@ -56,16 +56,16 @@ st.markdown("""
     }
     .iteratif-bg { background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%); }
     .rekursif-bg { background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%); }
-    .card-label { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; }
+    .card-label { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
     .card-value { font-size: 1.6rem; font-weight: 800; }
     
     .sum-result-box {
-        background-color: rgba(151, 166, 195, 0.1);
-        border: 2px solid #FF4B4B;
-        padding: 20px;
-        border-radius: 12px;
+        background-color: var(--background-secondary-color);
+        border: 1px solid #444;
+        padding: 10px;
+        border-radius: 8px;
         text-align: center;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
     }
     .footer { text-align: center; color: gray; padding: 20px; font-size: 12px; }
     </style>
@@ -88,17 +88,15 @@ if run_btn:
     res_i, time_i, fact_i = sum_even_factors_iterative(n_val)
     res_r, time_r, fact_r, success_r = sum_even_factors_recursive(n_val)
 
-    # 2. Kotak Hasil Penjumlahan
+    # 2. Highlight Hasil Penjumlahan (Dikecilkan & Digabung)
     st.markdown(f"""
         <div class="sum-result-box">
-            <h3 style="margin:0; font-weight: 900; color: var(--text-color); text-transform: uppercase;">
-                TOTAL PENJUMLAHAN FAKTOR GENAP (N={n_val}): 
-                <span style="color: #FF4B4B;">{res_i}</span>
-            </h3>
+            <span style="color: gray;">Total Penjumlahan Faktor Genap (N={n_val}):</span><br>
+            <b style="font-size: 1.5rem; color: #FF4B4B;">{res_i}</b>
         </div>
     """, unsafe_allow_html=True)
 
-    # 3. Perbandingan Kecepatan
+    # 3. Highlight Kecepatan (Fokus Utama Sekarang)
     st.write("### ⏱️ Perbandingan Kecepatan")
     col_v1, col_v2, col_v3 = st.columns(3)
     with col_v1:
@@ -115,7 +113,7 @@ if run_btn:
         selisih = abs(time_i - time_r)
         st.metric("Selisih Efisiensi", f"{selisih:.8f} s")
 
-    # 4. Grafik & Detail
+    # 4. Grafik Bar (Original)
     st.divider()
     col_chart, col_detail = st.columns([3, 2])
     with col_chart:
@@ -127,6 +125,8 @@ if run_btn:
             ])
             fig.update_layout(height=350, margin=dict(l=20, r=20, t=20, b=20))
             st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.warning("⚠️ Rekursif mencapai batasan stack memori.")
 
     with col_detail:
         st.subheader("📋 Detail Data Faktor")
@@ -134,7 +134,7 @@ if run_btn:
         with st.container(border=True):
             st.write(", ".join(map(str, sorted(fact_i))) if fact_i else "Tidak ada faktor genap")
 
-    # 5. Grafik Garis Trend & Tabel Kenaikan
+    # 5. Grafik Garis & Tabel Kenaikan N (Analisis Tambahan)
     st.divider()
     st.subheader("📈 Trend Kenaikan Waktu Berdasarkan N")
     input_sizes = [10, 100, 250, 500, 750, 1000, 1500, 2000]
@@ -150,7 +150,7 @@ if run_btn:
         fig2, ax = plt.subplots(figsize=(10, 4.5))
         ax.plot(df_perf["N"], df_perf["Rekursif (s)"], marker='o', label='Rekursif', color='#3B82F6')
         ax.plot(df_perf["N"], df_perf["Iteratif (s)"], marker='o', label='Iteratif', color='#EC4899')
-        ax.set_ylabel("Waktu (s)")
+        ax.set_ylabel("Waktu (detik)")
         ax.legend()
         ax.grid(True, alpha=0.3)
         st.pyplot(fig2)
@@ -161,37 +161,37 @@ if run_btn:
     st.divider()
     t1, t2 = st.tabs(["📝 Kesimpulan Analisis", "💻 Kode Algoritma"])
     with t1:
-        st.markdown(f"""
-        ### Kenapa ada perbedaan waktu?
-        1. **Iteratif ($O(n)$)**: Hanya menggunakan satu jalur proses (*looping*). Sangat stabil untuk angka besar.
-        2. **Rekursif ($O(n)$)**: Memanggil dirinya sendiri berulang kali. Setiap panggilan disimpan dalam **Stack Memori**. 
-        
-        **Hasil Percobaan:**
-        Pada $n = {n_val}$, metode **{'Iteratif' if time_i < time_r else 'Rekursif'}** tercatat lebih cepat sebanyak **{abs(time_i - time_r):.6f} detik**.
-        """)
+        pemenang = "Iteratif" if time_i < time_r else "Rekursif"
+        st.success(f"Analisis Selesai: Metode **{pemenang}** lebih efisien untuk N = {n_val}.")
         
         st.write("#### 📊 Kelas Kompleksitas")
         st.table(pd.DataFrame({
             "Metode": ["Iteratif", "Rekursif"],
             "Time Complexity": ["O(n)", "O(n)"],
             "Space Complexity": ["O(1)", "O(n)"],
-            "Keterangan": ["Hemat RAM", "Beresiko Stack Overflow"]
+            "Stabilitas": ["Tinggi", "Terbatas (Stack Memory)"]
         }))
+        st.info("Catatan: Secara teori Big O, keduanya adalah linear. Namun secara praktis, rekursif lebih lambat karena overhead pemanggilan fungsi.")
 
     with t2:
         st.code("""
-# Versi Iteratif
+# Iteratif (Looping)
 for i in range(1, n + 1):
-    if n % i == 0 and i % 2 == 0:
-        total += i
-        
-# Versi Rekursif
+    if n % i == 0 and i % 2 == 0: total += i
+
+# Rekursif (Self-Calling)
 def logic(n, curr):
     if curr > n: return 0
     return logic + recursive(n, curr + 1)
         """, language="python")
 
 else:
-    st.info("Atur nilai N pada sidebar dan klik **MULAI ANALISIS**.")
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.image("https://img.freepik.com/free-vector/data-analysis-concept-illustration_114360-804.jpg")
+    with col_b:
+        st.write("### Selamat Datang!")
+        st.write("Gunakan slider di samping untuk mengatur angka, lalu klik **Mulai Analisis**.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2024</div>", unsafe_allow_html=True)
+
