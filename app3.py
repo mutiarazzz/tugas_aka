@@ -164,6 +164,17 @@ if run_btn:
         pemenang = "Iteratif" if time_i < time_r else "Rekursif"
         st.success(f"Analisis Selesai: Metode **{pemenang}** lebih efisien untuk N = {n_val}.")
         
+        # --- Bagian Analisis Tambahan yang Anda Minta ---
+        st.markdown(f"""
+        ### Kenapa ada perbedaan waktu?
+        1. **Iteratif ($O(n)$)**: Hanya menggunakan satu jalur proses (*looping*). Sangat stabil untuk angka besar dan hemat memori karena tidak menambah tumpukan panggilan.
+        2. **Rekursif ($O(n)$)**: Memanggil dirinya sendiri berulang kali. Setiap panggilan disimpan dalam **Stack Memori**, yang menyebabkan beban tambahan (*overhead*) pada CPU dan risiko *Stack Overflow*. 
+        
+        **Hasil Percobaan:**
+        Pada $n = {n_val}$, metode **{pemenang}** tercatat lebih cepat sebanyak **{abs(time_i - time_r):.6f} detik**.
+        """)
+        # -----------------------------------------------
+
         st.write("#### 📊 Kelas Kompleksitas")
         st.table(pd.DataFrame({
             "Metode": ["Iteratif", "Rekursif"],
@@ -172,7 +183,7 @@ if run_btn:
             "Stabilitas": ["Tinggi", "Terbatas (Stack Memory)"]
         }))
         st.info("Catatan: Secara teori Big O, keduanya adalah linear. Namun secara praktis, rekursif lebih lambat karena overhead pemanggilan fungsi.")
-
+        
     with t2:
         st.code("""
 # Iteratif (Looping)
@@ -194,4 +205,5 @@ else:
         st.write("Gunakan slider di samping untuk mengatur angka, lalu klik **Mulai Analisis**.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2024</div>", unsafe_allow_html=True)
+
 
