@@ -86,9 +86,13 @@ if run_btn:
 
     # 2. Hasil Penjumlahan 
     st.markdown(f"""
-        <div class="sum-result-box">
-            <span style="color: gray;">Total Penjumlahan Faktor Genap (N={n_val}):</span><br>
-            <b style="font-size: 1.5rem; color: #FF4B4B;">{res_i}</b>
+        <div class="sum-result-box" style="border: 2px solid #FF4B4B; padding: 20px;">
+            <span style="color: #FFFFFF; font-size: 1.2rem; font-weight: 500;">
+                Total Penjumlahan Faktor Genap (N={n_val}):
+            </span><br>
+            <b style="font-size: 2.2rem; color: #FF4B4B; line-height: 1.5;">
+                {res_i}
+            </b>
         </div>
     """, unsafe_allow_html=True)
 
@@ -198,4 +202,5 @@ else:
     st.info("Gunakan slider di samping dan klik tombol Mulai untuk melihat hasil analisis.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2024</div>", unsafe_allow_html=True)
+
 
