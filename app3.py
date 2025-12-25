@@ -44,7 +44,7 @@ def sum_even_factors_recursive(n, current=1):
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(page_title="Analisis Kompleksitas Algoritma", layout="wide")
 
-# Custom CSS untuk UI ramping dan teks bold
+# Custom CSS untuk UI Premium dan adaptif
 st.markdown("""
     <style>
     .speed-card {
@@ -60,10 +60,10 @@ st.markdown("""
     .card-value { font-size: 1.6rem; font-weight: 800; }
     
     .sum-result-box {
-        background-color: var(--background-secondary-color);
-        border: 2px solid var(--text-color);
-        padding: 15px;
-        border-radius: 10px;
+        background-color: rgba(151, 166, 195, 0.1);
+        border: 2px solid #FF4B4B;
+        padding: 20px;
+        border-radius: 12px;
         text-align: center;
         margin-bottom: 25px;
     }
@@ -88,17 +88,17 @@ if run_btn:
     res_i, time_i, fact_i = sum_even_factors_iterative(n_val)
     res_r, time_r, fact_r, success_r = sum_even_factors_recursive(n_val)
 
-    # 2. Highlight Hasil Penjumlahan (Dibuat Bold & Terbaca)
+    # 2. Kotak Hasil Penjumlahan (Teks Besar & Jelas)
     st.markdown(f"""
         <div class="sum-result-box">
-            <h3 style="margin:0; font-weight: 900; color: var(--text-color);">
+            <h3 style="margin:0; font-weight: 900; color: var(--text-color); text-transform: uppercase;">
                 TOTAL PENJUMLAHAN FAKTOR GENAP (N={n_val}): 
                 <span style="color: #FF4B4B;">{res_i}</span>
             </h3>
         </div>
     """, unsafe_allow_html=True)
 
-    # 3. Highlight Kecepatan
+    # 3. Perbandingan Kecepatan (Highlight Utama)
     st.write("### ⏱️ Perbandingan Kecepatan")
     col_v1, col_v2, col_v3 = st.columns(3)
     with col_v1:
@@ -115,7 +115,7 @@ if run_btn:
         selisih = abs(time_i - time_r)
         st.metric("Selisih Efisiensi", f"{selisih:.8f} s")
 
-    # 4. Grafik & Detail (Original Bar Chart)
+    # 4. Grafik Bar & Detail Faktor
     st.divider()
     col_chart, col_detail = st.columns([3, 2])
     with col_chart:
@@ -134,7 +134,7 @@ if run_btn:
         with st.container(border=True):
             st.write(", ".join(map(str, sorted(fact_i))) if fact_i else "Tidak ada faktor genap")
 
-    # 5. Grafik Garis & Tabel Kenaikan N
+    # 5. Grafik Garis Trend & Tabel Kenaikan
     st.divider()
     st.subheader("📈 Trend Kenaikan Waktu Berdasarkan N")
     input_sizes = [10, 100, 250, 500, 750, 1000, 1500, 2000]
@@ -150,13 +150,14 @@ if run_btn:
         fig2, ax = plt.subplots(figsize=(10, 4.5))
         ax.plot(df_perf["N"], df_perf["Rekursif (s)"], marker='o', label='Rekursif', color='#3B82F6')
         ax.plot(df_perf["N"], df_perf["Iteratif (s)"], marker='o', label='Iteratif', color='#EC4899')
+        ax.set_ylabel("Waktu (s)")
         ax.legend()
         ax.grid(True, alpha=0.3)
         st.pyplot(fig2)
     with c_table:
         st.dataframe(df_perf.style.format({"Iteratif (s)": "{:.8f}", "Rekursif (s)": "{:.8f}"}), use_container_width=True)
 
-    # 6. Tab Analisis (Sesuai Permintaan)
+    # 6. Tab Analisis & Kode (Analisis sebelumnya tetap ada)
     st.divider()
     t1, t2 = st.tabs(["📝 Kesimpulan Analisis", "💻 Kode Algoritma"])
     with t1:
@@ -169,12 +170,12 @@ if run_btn:
         Pada $n = {n_val}$, metode **{'Iteratif' if time_i < time_r else 'Rekursif'}** tercatat lebih cepat sebanyak **{abs(time_i - time_r):.6f} detik**.
         """)
         
-        st.write("#### 📊 Tabel Kelas Kompleksitas")
+        st.write("#### 📊 Kelas Kompleksitas")
         st.table(pd.DataFrame({
             "Metode": ["Iteratif", "Rekursif"],
             "Time Complexity": ["O(n)", "O(n)"],
             "Space Complexity": ["O(1)", "O(n)"],
-            "Stabilitas": ["Tinggi", "Terbatas (Stack Memory)"]
+            "Keterangan": ["Hemat RAM", "Beresiko Stack Overflow"]
         }))
 
     with t2:
@@ -187,11 +188,10 @@ for i in range(1, n + 1):
 # Versi Rekursif
 def logic(n, curr):
     if curr > n: return 0
-    # pemanggilan fungsi memakan stack memori
-    return current + logic(n, curr + 1)
+    return logic + recursive(n, curr + 1)
         """, language="python")
 
 else:
-    st.info("Pilih angka dan klik **MULAI ANALISIS**.")
+    st.info("Atur nilai N pada sidebar dan klik **MULAI ANALISIS**.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2024</div>", unsafe_allow_html=True)
