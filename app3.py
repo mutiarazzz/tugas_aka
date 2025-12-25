@@ -168,8 +168,10 @@ if run_btn:
         # --- BLOK ANALISIS TAMBAHAN ---
         st.markdown(f"""
         ### Kenapa ada perbedaan waktu?
-        1. <span style='color: #EC4899; font-weight: bold;'>Iteratif ($O(n)$)</span>: Proses berjalan hanya menggunakan satu jalur proses *perulangan*. Sangat stabil untuk angka besar dan hemat memori karena tidak menambah tumpukan panggilan.
-        2. <span style='color: #3B82F6; font-weight: bold;'>Rekursif ($O(n)$)</span>: Proses berjalan dengan memanggil dirinya sendiri secara berulang. Setiap panggilan disimpan dalam **Stack Memori** sehingga membutuhkan lebih banyak memori.
+        1. <b style='color: #EC4899;'>Iteratif</b> <b style='color: #EC4899;'>(O(n))</b>: Proses berjalan hanya menggunakan satu jalur proses <i>perulangan</i>. Sangat stabil untuk angka besar dan hemat memori karena tidak menambah tumpukan panggilan.
+        2. <b style='color: #3B82F6;'>Rekursif</b> <b style='color: #3B82F6;'>(O(n))</b>: Proses berjalan dengan memanggil dirinya sendiri secara berulang. Setiap panggilan disimpan dalam <b>Stack Memori</b> sehingga membutuhkan lebih banyak memori.
+        
+        <br>
         
         **Hasil Percobaan:**
         Pada $n = {n_val}$, metode **{pemenang}** tercatat lebih cepat sebanyak **{abs(time_i - time_r):.6f} detik**.
@@ -202,6 +204,7 @@ else:
     st.info("Gunakan slider di samping dan klik tombol Mulai untuk melihat hasil analisis.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2025</div>", unsafe_allow_html=True)
+
 
 
 
