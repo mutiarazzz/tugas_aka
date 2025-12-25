@@ -173,7 +173,7 @@ if run_btn:
         
         **Hasil Percobaan:**
         Pada $n = {n_val}$, metode **{pemenang}** tercatat lebih cepat sebanyak **{abs(time_i - time_r):.6f} detik**.
-        """)
+        """, unsafe_allow_html=True)
         
         
 
@@ -202,6 +202,7 @@ else:
     st.info("Gunakan slider di samping dan klik tombol Mulai untuk melihat hasil analisis.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2025</div>", unsafe_allow_html=True)
+
 
 
 
