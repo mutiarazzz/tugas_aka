@@ -72,7 +72,7 @@ st.markdown("""
 # --- SIDEBAR ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/2103/2103633.png", width=60)
-    st.title("Panel Kontrol")
+    st.title("Parameter Analisis")
     n_val = st.slider("Nilai N:", min_value=1, max_value=2000, value=500)
     st.divider()
     run_btn = st.button("🚀 MULAI ANALISIS", use_container_width=True)
@@ -168,8 +168,8 @@ if run_btn:
         # --- BLOK ANALISIS TAMBAHAN ---
         st.markdown(f"""
         ### Kenapa ada perbedaan waktu?
-        1. **Iteratif ($O(n)$)**: Hanya menggunakan satu jalur proses (*looping*). Sangat stabil untuk angka besar dan hemat memori karena tidak menambah tumpukan panggilan.
-        2. **Rekursif ($O(n)$)**: Memanggil dirinya sendiri berulang kali. Setiap panggilan disimpan dalam **Stack Memori**, yang menyebabkan beban tambahan (*overhead*) pada CPU.
+        1. **Iteratif ($O(n)$)**: Proses berjalan hanya menggunakan satu jalur proses *perulangan*. Sangat stabil untuk angka besar dan hemat memori karena tidak menambah tumpukan panggilan.
+        2. **Rekursif ($O(n)$)**: Proses berjalan dengan memanggil dirinya sendiri secara berulang. Setiap panggilan disimpan dalam **Stack Memori** sehingga membutuhkan lebih banyak memori.
         
         **Hasil Percobaan:**
         Pada $n = {n_val}$, metode **{pemenang}** tercatat lebih cepat sebanyak **{abs(time_i - time_r):.6f} detik**.
@@ -201,6 +201,7 @@ def logic(n, curr):
 else:
     st.info("Gunakan slider di samping dan klik tombol Mulai untuk melihat hasil analisis.")
 
-st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2024</div>", unsafe_allow_html=True)
+st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2025</div>", unsafe_allow_html=True)
+
 
 
