@@ -157,8 +157,7 @@ if run_btn:
         st.dataframe(df_perf.style.format({"Iteratif (s)": "{:.8f}", "Rekursif (s)": "{:.8f}"}), use_container_width=True)
 
 
-    # --- TAB ANALISIS ---
-    st.divider()
+    # TAB ANALISIS 
     t1, t2 = st.tabs(["📝 Kesimpulan Analisis", "💻 Kode Algoritma"])
     
     with t1:
@@ -214,6 +213,7 @@ else:
     st.info("Gunakan slider di samping dan klik tombol Mulai untuk melihat hasil analisis.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2025</div>", unsafe_allow_html=True)
+
 
 
 
