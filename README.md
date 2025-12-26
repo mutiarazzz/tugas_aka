@@ -9,7 +9,9 @@ menggunakan dua pendekatan algoritma, yaitu:
 2. Algoritma Rekursif
 
 Kedua algoritma dibandingkan dari sisi cara kerja dan waktu eksekusi
-untuk melihat perbedaan efisiensi. Aplikasi ini dikembangkan menggunakan Python dan Streamlit. Hasil pengolahan ditampilkan secara visual dalam bentuk grafik sehingga perbedaan kinerja antara kedua pendekatan dapat diamati secara langsung.
+untuk melihat perbedaan efisiensi. 
+
+Aplikasi ini dikembangkan menggunakan Python dan Streamlit. Hasil pengolahan ditampilkan secara visual dalam bentuk grafik sehingga perbedaan kinerja antara kedua pendekatan dapat diamati secara langsung.
 
 ## Definisi Faktor Genap
 Faktor genap adalah bilangan genap yang dapat membagi habis suatu bilangan.
@@ -18,6 +20,18 @@ Contoh:
 Jika n = 12  
 Faktor genap = 2, 4, 6, 12  
 Jumlah faktor genap = 24
+
+## Fitur Utama
+1. Perhitungan jumlah faktor genap menggunakan:
+   - Algoritma Iteratif
+   - Algoritma Rekursif
+2. Pengukuran waktu eksekusi masing-masing algoritma
+3. Perbandingan performa secara langsung
+4. Visualisasi:
+   - Grafik batang waktu eksekusi
+   - Grafik garis tren kenaikan waktu terhadap nilai input
+5. Tampilan daftar faktor genap yang ditemukan
+6. Analisis kompleksitas waktu dan ruang
 
 ## ▶️ Cara Menjalankan Program
 1. Pastikan Python sudah terinstal
