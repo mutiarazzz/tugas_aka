@@ -213,14 +213,3 @@ else:
     st.info("Gunakan slider di samping dan klik tombol Mulai untuk melihat hasil analisis.")
 
 st.markdown("<div class='footer'>Tugas Besar Analisis Kompleksitas Algoritma - 2025</div>", unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
-
-
