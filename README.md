@@ -34,10 +34,12 @@ Jumlah faktor genap = 24
 6. Analisis kompleksitas waktu dan ruang
 
 ## ▶️ Cara Menjalankan Program
-1. Pastikan Python sudah terinstal
-2. Buka terminal atau command prompt
-3. Jalankan perintah:
-4. Masukkan bilangan yang ingin diuji
+1. Pastikan Python sudah terpasang di komputer
+2. Pasang library yang dibutuhkan: streamlit, pandas, matplotlib, dan plotly
+3. Simpan file program dalam satu folder
+4. Jalankan aplikasi menggunakan perintah Streamlit melalui terminal atau command prompt
+5. Atur nilai input menggunakan slider yang tersedia pada tampilan aplikasi
+6. Klik tombol Mulai Analisis untuk melihat hasil perhitungan dan grafik
 
 ## Algoritma yang Digunakan
 
